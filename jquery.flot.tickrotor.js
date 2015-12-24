@@ -52,13 +52,7 @@
                     radsAboveHoriz = Math.PI/2 - rotateTicksRads;
                 }
 
-                font = opts.rotateTicksFont;
-                if (!font) {
-                    font = $('.tickLabel').css('font');
-                }
-                if (!font) {
-                    font = 'smaller sans-serif';
-                }
+                font = opts.font;
 
                 var elem, maxLabelWidth = 0, maxLabelHeight = 0, minX = 0, maxX = 0;
 
@@ -78,7 +72,7 @@
 
                 var x;
                 for (var i = 0; i < ticks.length; i++) {
-                  elem = $('<span style="font:' + font + '">' + ticks[i].label + '</span>');
+                  elem = $('<span style="font:' + font.size + 'px ' + font.family + ' color: '+ font.color +' ">' + ticks[i].label + '</span>');
                   plot.getPlaceholder().append(elem);
                   ticks[i].height = elem.outerHeight(true);
                   ticks[i].width = elem.outerWidth(true);
@@ -151,7 +145,8 @@
                         continue;
                     }
                     ctx.save();
-                    ctx.font = font;
+                    ctx.font = font.size + 'px ' + font.family;
+                    ctx.fillStyle = font.color;
                     if (rotateTicks <= 90) {
                         // Center such that the top of the label is at the center of the tick.
                         xoffset = -Math.ceil(Math.cos(radsAboveHoriz) * tick.height);
